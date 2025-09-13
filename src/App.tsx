@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import LoginForm from "./components/LoginForm";
 import Sidebar from "./components/Sidebar";
 import Dashboard from "./pages/Dashboard";
 import Transactions from "./pages/Transactions";
@@ -9,7 +11,8 @@ import Insights from "./pages/Insights";
 import { Transaction, Budget, FinancialGoal, Category } from "./types";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 
-function App() {
+const MainApp: React.FC = () => {
+  const { isAuthenticated } = useAuth();
   const [transactions, setTransactions] = useLocalStorage<Transaction[]>(
     "transactions",
     []
@@ -202,6 +205,10 @@ function App() {
     setGoals,
   ]);
 
+  if (!isAuthenticated) {
+    return <LoginForm />;
+  }
+
   return (
     <Router>
       <div className="flex h-screen bg-gray-50">
@@ -288,6 +295,14 @@ function App() {
         </div>
       </div>
     </Router>
+  );
+};
+
+function App() {
+  return (
+    <AuthProvider>
+      <MainApp />
+    </AuthProvider>
   );
 }
 

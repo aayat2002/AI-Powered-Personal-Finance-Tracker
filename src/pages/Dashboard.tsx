@@ -113,7 +113,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         <AIInsights
           transactions={transactions}
           budgets={budgets}
-          stats={stats}
+          goals={goals}
         />
       </div>
     </div>

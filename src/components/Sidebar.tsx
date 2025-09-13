@@ -10,6 +10,7 @@ import {
   Wallet,
   PiggyBank,
 } from "lucide-react";
+import UserProfile from "./UserProfile";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -94,26 +95,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           </div>
         </nav>
 
-        {/* Quick Stats */}
+        {/* User Profile */}
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4">
-            <div className="flex items-center space-x-2 mb-2">
-              <Wallet className="w-4 h-4 text-blue-600" />
-              <span className="text-sm font-medium text-gray-700">
-                Quick Stats
-              </span>
-            </div>
-            <div className="text-xs text-gray-600">
-              <div className="flex justify-between">
-                <span>This Month</span>
-                <span className="font-medium">₹36,750</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Savings Rate</span>
-                <span className="font-medium text-green-600">23%</span>
-              </div>
-            </div>
-          </div>
+          <UserProfile />
         </div>
       </div>
     </>
