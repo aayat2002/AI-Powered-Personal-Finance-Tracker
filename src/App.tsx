@@ -12,7 +12,7 @@ import { Transaction, Budget, FinancialGoal, Category } from "./types";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 
 const MainApp: React.FC = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const [transactions, setTransactions] = useLocalStorage<Transaction[]>(
     "transactions",
     []
@@ -80,6 +80,7 @@ const MainApp: React.FC = () => {
   ]);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   // Sample data for demonstration
   useEffect(() => {
@@ -238,7 +239,14 @@ const MainApp: React.FC = () => {
               <h1 className="text-xl font-semibold text-gray-900">
                 AI Finance Tracker
               </h1>
-              <div className="w-6"></div>
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={() => setShowLogoutConfirm(true)}
+                  className="text-sm text-gray-600 hover:text-gray-900 px-3 py-1 rounded-md hover:bg-gray-100 transition-colors"
+                >
+                  Sign Out
+                </button>
+              </div>
             </div>
           </header>
 
@@ -294,6 +302,38 @@ const MainApp: React.FC = () => {
           </main>
         </div>
       </div>
+
+      {/* Logout Confirmation Modal */}
+      {showLogoutConfirm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              Confirm Sign Out
+            </h3>
+            <p className="text-gray-600 mb-6">
+              Are you sure you want to sign out? All your data will be cleared
+              from this device.
+            </p>
+            <div className="flex space-x-3">
+              <button
+                onClick={() => setShowLogoutConfirm(false)}
+                className="flex-1 px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  logout();
+                  setShowLogoutConfirm(false);
+                }}
+                className="flex-1 px-4 py-2 text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors"
+              >
+                Sign Out
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </Router>
   );
 };

@@ -304,9 +304,18 @@ const LoginForm: React.FC = () => {
         </div>
 
         <div className="text-center text-sm text-gray-500">
-          <p>Demo Credentials:</p>
+          <p className="mb-2">Demo Credentials:</p>
           <p>Email: demo@example.com</p>
           <p>Password: demo123</p>
+          <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+            <p className="text-blue-700 font-medium">
+              🚀 Ready to get started?
+            </p>
+            <p className="text-blue-600 text-xs mt-1">
+              Use the demo account or create your own to start tracking your
+              finances with AI insights!
+            </p>
+          </div>
         </div>
       </div>
     </div>
